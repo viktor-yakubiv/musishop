@@ -55,4 +55,11 @@ public class Album {
     public Artist getArtist() {
         return artist;
     }
+    
+    @Override
+    public String toString() {
+    	return this.getName() +
+                "(" + this.getReleaseYear() + ")" +
+                " by " + this.getArtist().getName();
+    }
 }

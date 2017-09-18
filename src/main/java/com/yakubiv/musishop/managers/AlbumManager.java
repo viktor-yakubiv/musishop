@@ -53,18 +53,13 @@ public class AlbumManager {
         return albumId;
     }
 
-    public void listAlbums() {
+    public List<Album> listAlbums() {
         Session session = factory.openSession();
         Transaction tx = null;
+        List<Album> albums = null;
         try {
             tx = session.beginTransaction();
-            List albums = session.createQuery("FROM Album").list();
-            for (Object albumObj : albums) {
-                Album album = (Album) albumObj;
-                System.out.println(album.getName() +
-                        "(" + album.getReleaseYear() + ")" +
-                        " by " + album.getArtist().getName());
-            }
+            albums = session.createQuery("FROM Album").list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -72,6 +67,8 @@ public class AlbumManager {
         } finally {
             session.close();
         }
+        
+        return albums;
     }
 
     public void updateAlbum(Integer albumId, String name, Integer releaseYear) {

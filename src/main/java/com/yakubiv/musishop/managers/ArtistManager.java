@@ -48,16 +48,13 @@ public class ArtistManager {
         return artistId;
     }
 
-    public void listArtists() {
+    public List<Artist> listArtists() {
         Session session = factory.openSession();
         Transaction tx = null;
+        List<Artist> artists = null;
         try {
             tx = session.beginTransaction();
-            List artists = session.createQuery("FROM Artist").list();
-            for (Object artistObj : artists) {
-                Artist artist = (Artist) artistObj;
-                System.out.println(artist.getName());
-            }
+            artists = session.createQuery("FROM Artist").list();
             tx.commit();
         } catch (HibernateException e) {
             if (tx != null) tx.rollback();
@@ -65,6 +62,8 @@ public class ArtistManager {
         } finally {
             session.close();
         }
+        
+        return artists;
     }
 
     public void updateArtist(Integer artistId, String name) {

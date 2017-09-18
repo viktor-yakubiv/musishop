@@ -5,10 +5,10 @@ import com.yakubiv.musishop.models.Artist;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-class Factory {
+public class Factory {
     private static SessionFactory factory = null;
 
-    static SessionFactory getInstance() {
+    public static SessionFactory getInstance() {
         if (factory != null) return factory;
 
         try {
@@ -25,7 +25,7 @@ class Factory {
         return factory;
     }
 
-    static void close() {
+    public static void close() {
         factory.close();
         factory = null;
     }
